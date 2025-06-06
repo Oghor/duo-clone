@@ -4,9 +4,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm cache clean --force
-
-RUN npm config set registry https://registry.npmjs.org/
 
 RUN npm install
 
@@ -26,7 +23,7 @@ COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.env ./
 
-RUN npm install --only=production
+RUN npm install --omit=dev
 
 EXPOSE 3000
 
